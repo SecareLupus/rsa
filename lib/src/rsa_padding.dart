@@ -27,7 +27,7 @@ class PKCS1Padding implements Padding {
   
   Uint8List strip(Uint8List bytes) {
     if (!_isValidSequence(bytes))
-      throw new ArgumentError.value(bytes);
+      throw new ArgumentError(bytes);
     var start = bytes.indexOf(0x00, 2);
     var m = bytes.sublist(start + 1);
     return m;

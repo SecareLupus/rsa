@@ -54,7 +54,7 @@ class KeyPair {
       return DSC.encode(_encrypt(plainText, padding));
     }
     if (plainText is Uint8List) return _encrypt(plainText, padding);
-    throw new ArgumentError.value(plainText);
+    throw new ArgumentError(plaintext);
   }
   
   PublicEncryptionResult publicEncrypt(plainText,
@@ -85,7 +85,7 @@ class KeyPair {
       return new String.fromCharCodes(_decrypt(cipherText, padding));
     }
     if (cipherText is Uint8List) return _decrypt(cipherText, padding);
-    throw new ArgumentError.value(cipherText);
+    throw new ArgumentError(cipherText);
   }
   
   Uint8List _decrypt(Uint8List cipherText, padding) {
@@ -103,7 +103,7 @@ class KeyPair {
     }
     if (message is Uint8List) return _sign(message,
         hashFunction: hashFunction);
-    throw new ArgumentError.value(message);
+    throw new ArgumentError(message);
   }
   
   Uint8List _sign(Uint8List message,
@@ -123,16 +123,16 @@ class KeyPair {
     if (message is String)
       message = DSC.decode(message);
     if (signature is! Uint8List)
-      throw new ArgumentError.value(signature);
+      throw new ArgumentError(signature);
     if (message is! Uint8List)
-      throw new ArgumentError.value(message);
+      throw new ArgumentError(message);
     return _verify(signature, message, hashFunction: hashFunction);
   }
   
   bool _verify(Uint8List signature, Uint8List message,
                {HashFunction hashFunction: SHA256}) {
-    if (signature.length != bytesize)
-      throw new ArgumentError.value(signature);
+    //if (signature.length != bytesize)
+    //  throw new ArgumentError.value(signature);
     var s = PKCS1.os2ip(signature);
     var m = PKCS1.rsavp1(publicKey, s);
     var em1 = PKCS1.i2osp(m, bytesize);

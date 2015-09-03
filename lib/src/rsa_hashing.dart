@@ -82,7 +82,7 @@ Uint8List emsaEncode(Uint8List data, int targetLength,
                      {HashFunction hashFunction: SHA256}) {
   var t = hashFunction.digestInfo(data);
   if (targetLength < t.length + 11)
-    throw new ArgumentError.value(targetLength);
+    throw new ArgumentError(targetLength);
   var ps = new List.filled(max(targetLength - t.length - 3, 8), 0xff);
   var em = [0x00, 0x01]..addAll(ps)..add(0x00)..addAll(t);
   return new Uint8List.fromList(em);
